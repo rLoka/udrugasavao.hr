@@ -1,0 +1,33 @@
+# Apache static hosting: enable mod_rewrite and AllowOverride for these rules.
+DirectoryIndex index.html
+Options -Indexes -MultiViews
+ErrorDocument 404 /404.html
+AddDefaultCharset UTF-8
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule ^blog/?$ /udruga-savao-u-medijima/ [R=301,L]
+# Deploy only on the production domain; localhost previews use Astro.
+RewriteCond %{HTTP_HOST} ^www\.udrugasavao\.hr$ [NC]
+RewriteRule ^ https://udrugasavao.hr%{REQUEST_URI} [R=301,L,NE]
+RewriteCond %{HTTP_HOST} ^udrugasavao\.hr$ [NC]
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://udrugasavao.hr%{REQUEST_URI} [R=301,L,NE]
+RewriteRule ^(wp-sitemap|page-sitemap|post-sitemap|sitemap-misc)\.xml$ /sitemap.xml [R=301,L]
+RewriteRule ^sitemap\.html/$ /sitemap.html [R=301,L]
+# Apache DirectorySlash handles missing trailing slashes on real directories.
+</IfModule>
+
+<IfModule mod_headers.c>
+Header always set X-Content-Type-Options "nosniff"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType image/webp "access plus 1 day"
+ExpiresByType image/png "access plus 1 day"
+ExpiresByType image/jpeg "access plus 1 day"
+ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>

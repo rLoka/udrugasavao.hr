@@ -1,0 +1,11 @@
+https://www.udrugasavao.hr/* https://udrugasavao.hr/:splat 301!
+http://www.udrugasavao.hr/* https://udrugasavao.hr/:splat 301!
+http://udrugasavao.hr/* https://udrugasavao.hr/:splat 301!
+/wp-sitemap.xml /sitemap.xml 301
+/page-sitemap.xml /sitemap.xml 301
+/post-sitemap.xml /sitemap.xml 301
+/sitemap-misc.xml /sitemap.xml 301
+/sitemap.html/ /sitemap.html 301
+
+/blog/ /udruga-savao-u-medijima/ 301
+/blog /udruga-savao-u-medijima/ 301
